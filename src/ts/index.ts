@@ -88,11 +88,16 @@ const initialize = async () => {
   const res6 = await multipleAsyncResolver([1, 2, 3]);
   console.log('res6:', res6); // outputs [1, 2, 3]
 
-  // 6. multiple reject with await/catch
+  // 7. multiple reject with await/catch
   const res7 = await multipleAsyncRejecter([1, 2, 3]).catch((error: Error) => {
     console.log('res7 error:', error.message); // outputs 'rejected'
   });
   console.log('res7:', res7); // outputs 'undefined'
+
+  // 8. reject without catch
+  const res8 = await asyncRejecter(); // Uncaught (in promise) Error: rejected
+  console.log('res8:', res8); // not passed
+  console.log('after case8'); // not passed
 };
 
 window.addEventListener('DOMContentLoaded', () => {
