@@ -1,4 +1,4 @@
-# Async Cheet Sheet
+# Async Cheat Sheet
 
 ## Usage
 
