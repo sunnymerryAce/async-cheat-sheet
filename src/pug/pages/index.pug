@@ -1,0 +1,21 @@
+extends ../partial/layout.pug
+
+block vars
+  - var date        = Date.now();
+  - var bodyClass   = ''
+  - var title       = '[title insert here]'
+  - var description = ''
+  - var keywords    = ''
+  - var url         = ''
+  - var ogImage     = ''
+  - var siteName   = ''
+
+block script
+  script(charset='UTF-8' defer src='./js/index.bundle.js?version=' + date)
+
+
+block contents
+  main#main(role='main')
+    section
+      h1.title Async Cheet Sheet
+      p Please see your console.

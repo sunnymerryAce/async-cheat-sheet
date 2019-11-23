@@ -1,0 +1,147 @@
+{
+  "name": "dev-env-model-typescript",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "author": "Yoichiro Hirano",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npm-run-all -p build:pug 'develop:*' 'watch:*'",
+    "build": "npm-run-all -p 'build:*'",
+    "develop:js": "NODE_ENV=development webpack --watch --mode development --display-error-details --progress --colors",
+    "build:js": "NODE_ENV=production webpack --mode production --display-error-details --progress --colors",
+    "build:pug": "pug ./src/pug/pages/*.pug --pretty -o ./dist",
+    "watch:pug": "chokidar './src/pug/**/*.pug' --command 'npm run build:pug'",
+    "test": "jest --watch --silent=false --verbose false",
+    "lint": "eslint ./src/ts/**/*.ts"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/plugin-transform-async-to-generator": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@types/animejs": "^3.1.0",
+    "@types/jest": "^24.0.17",
+    "@types/node": "^12.7.2",
+    "@types/youtube": "^0.0.38",
+    "@typescript-eslint/eslint-plugin": "^2.7.0",
+    "@typescript-eslint/parser": "^2.8.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "chokidar-cli": "^2.1.0",
+    "cpx": "^1.5.0",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "fibers": "^4.0.2",
+    "jest": "^24.8.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
+    "pug": "^2.0.3",
+    "pug-cli": "^1.0.0-alpha6",
+    "pug-plain-loader": "^1.0.0",
+    "ts-jest": "^24.0.2",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.7.2",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "url-loader": "^2.0.1",
+    "webpack": "^4.29.6",
+    "webpack-bundle-analyzer": "^3.1.0",
+    "webpack-cli": "^3.3.0"
+  },
+  "dependencies": {
+    "animejs": "^3.1.0",
+    "core-js": "^3.2.1",
+    "intersection-observer": "^0.7.0",
+    "regenerator-runtime": "^0.13.3"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "ie": 11,
+            "android": 4
+          },
+          "useBuiltIns": "usage",
+          "corejs": {
+            "version": 3,
+            "proposals": true
+          },
+          "debug": true
+        }
+      ]
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-object-rest-spread",
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-transform-async-to-generator"
+    ]
+  },
+  "browserslist": [
+    "last 2 versions",
+    "ie >= 11",
+    "Android >= 4.4",
+    "safari >= 9"
+  ],
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "rules": {
+      "arrow-body-style": 0,
+      "no-console": 0,
+      "no-alert": 0,
+      "no-debugger": 1,
+      "no-param-reassign": 0,
+      "@typescript-eslint/rule-name": "error"
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true,
+      "jquery": true,
+      "jest": true
+    },
+    "extends": [
+      "airbnb-base"
+    ],
+    "parserOptions": {
+      "parser": "@typescript-eslint/parser",
+      "sourceType": "module"
+    },
+    "globals": {
+      "velocity": true,
+      "_": true,
+      "axios": true,
+      "YT": true,
+      "anime": true
+    }
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.tsx?$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    }
+  }
+}
