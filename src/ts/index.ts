@@ -5,7 +5,7 @@
  */
 
 const asyncResolver = (): Promise<string> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve('resolved');
     }, 1000);
@@ -22,7 +22,7 @@ const asyncRejecter = (): Promise<string> => {
 };
 
 const asyncGetNumber = (number: number): Promise<number> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       console.log(number);
       resolve(number);
@@ -41,6 +41,20 @@ const multipleAsyncRejecter = (array: Array<any>): Promise<Array<any>> => {
       : (asyncRejecter() as Promise<number | string>);
   });
   return Promise.all(promises);
+};
+
+const asyncRejecterWrapper = async (): Promise<string> => {
+  // return asyncRejecter()
+  //   .then((res) => {
+  //     console.log('then', res);
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //     Promise.reject(error);
+  //   });
+  const res: string = await asyncRejecter();
+  console.log('asyncRejecterWrapperRES', res);
+  return res;
 };
 
 const initialize = async () => {
@@ -94,10 +108,21 @@ const initialize = async () => {
   });
   console.log('res7:', res7); // outputs 'undefined'
 
+  // 8. asyncRejecterWrapper
+  asyncRejecterWrapper()
+    .then((res) => {
+      // console.log(res);
+      console.log('res8', res);
+    })
+    .catch((error) => {
+      console.log('asyncRejecterWrapper error', error);
+      return error;
+    });
+
   // 8. reject without catch
-  const res8 = await asyncRejecter(); // Uncaught (in promise) Error: rejected
-  console.log('res8:', res8); // not passed
-  console.log('after case8'); // not passed
+  // const res8 = await asyncRejecter(); // Uncaught (in promise) Error: rejected
+  // console.log('res8:', res8); // not passed
+  // console.log('after case8'); // not passed
 };
 
 window.addEventListener('DOMContentLoaded', () => {
